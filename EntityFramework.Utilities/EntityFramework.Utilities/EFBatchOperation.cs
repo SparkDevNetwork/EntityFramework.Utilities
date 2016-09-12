@@ -152,6 +152,7 @@ namespace EntityFramework.Utilities
 
                 var properties = tableMapping.PropertyMappings
                     .Where(p => currentType.IsSubclassOf(p.ForEntityType) || p.ForEntityType == currentType)
+                    .Where(p=> !p.IsStoreGeneratedComputed)
                     .Select(p => new ColumnMapping { NameInDatabase = p.ColumnName, NameOnObject = p.PropertyName }).ToList();
                 if (tableMapping.TPHConfiguration != null)
                 {

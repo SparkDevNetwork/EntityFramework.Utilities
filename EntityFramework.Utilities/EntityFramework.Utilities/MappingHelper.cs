@@ -95,6 +95,7 @@ namespace EntityFramework.Utilities
 
         public string DataTypeFull { get; set; }
         public bool IsStoreGeneratedIdentity { get; set; }
+        public bool IsStoreGeneratedComputed { get; set; }
     }
 
     /// <summary>
@@ -230,6 +231,12 @@ namespace EntityFramework.Utilities
                             ?.IsStoreGeneratedIdentity 
                             ?? false;
                     }
+
+                    item.IsStoreGeneratedComputed = storeContainer.FirstOrDefault(t => t.Name == item.ForEntityType.Name)
+                            ?.Properties
+                            ?.FirstOrDefault(p => p.Name == item.ColumnName)
+                            ?.IsStoreGeneratedComputed
+                            ?? false;
                 }
             }
         }
