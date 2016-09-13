@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>AFT</authors>
+    <owners>AFT</owners>
+    <licenseUrl>https://github.com/maze0417/EntityFramework.Utilities</licenseUrl>
+    <projectUrl>https://github.com/maze0417/EntityFramework.Utilities</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>AFT</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>EFBatch</tags>
+  </metadata>
+</package>
