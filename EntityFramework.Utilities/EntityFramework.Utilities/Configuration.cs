@@ -33,5 +33,13 @@ namespace EntityFramework.Utilities
         /// </summary>
         public static bool DisableDefaultFallback { get; set; }
 
+        /// <summary>
+        /// Gets or sets the SQL bulk copy options.
+        /// </summary>
+        /// <value>
+        /// The SQL bulk copy options.
+        /// </value>
+        public static System.Data.SqlClient.SqlBulkCopyOptions SqlBulkCopyOptions { get; set; }
+
     }
 }
