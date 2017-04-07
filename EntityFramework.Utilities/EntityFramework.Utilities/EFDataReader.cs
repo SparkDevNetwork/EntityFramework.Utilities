@@ -12,10 +12,12 @@ namespace EntityFramework.Utilities
         public IEnumerable<T> Items { get; set; }
         public IEnumerator<T> Enumerator { get; set; }
         public IList<string> Properties { get; set; }
+        public Dictionary<string, PropertyInfo> PropertyInfoLookup { get; set; }
         public List<Func<T, object>> Accessors { get; set; }
 
         public EFDataReader(IEnumerable<T> items, IEnumerable<ColumnMapping> properties)
         {
+            PropertyInfoLookup = typeof( T ).GetProperties().ToDictionary( k => k.Name, v => v );
             Properties = properties.Select(p => p.NameOnObject).ToList();
             Accessors = properties.Select(p =>
             {
@@ -95,7 +97,18 @@ namespace EntityFramework.Utilities
 
         public override object GetValue(int ordinal)
         {
-            return this.Accessors[ordinal](this.Enumerator.Current);
+            var propertyName = this.Properties[ordinal];
+            var propertyType = PropertyInfoLookup[propertyName].PropertyType;
+            if ( propertyType == typeof( System.Data.Entity.Spatial.DbGeography ) )
+            {
+                var data = this.Accessors[ordinal]( this.Enumerator.Current ) as System.Data.Entity.Spatial.DbGeography;
+                if ( data != null )
+                {
+                    return Microsoft.SqlServer.Types.SqlGeography.Point( data.Latitude.Value, data.Longitude.Value, 4326 );
+                }
+            }
+            
+            return this.Accessors[ordinal]( this.Enumerator.Current );
         }
 
         public override int GetOrdinal(string name)
