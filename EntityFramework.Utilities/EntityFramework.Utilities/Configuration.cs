@@ -41,5 +41,14 @@ namespace EntityFramework.Utilities
         /// </value>
         public static System.Data.SqlClient.SqlBulkCopyOptions SqlBulkCopyOptions { get; set; }
 
+        /// <summary>
+        /// Number of seconds for the operation to complete before it times out.
+        /// The default is 30 seconds. A value of 0 indicates no limit; the bulk copy will wait indefinitely.
+        /// </summary>
+        /// <value>
+        /// The bulk copy timeout.
+        /// </value>
+        public static int? BulkCopyTimeout { get; set; }
+
     }
 }

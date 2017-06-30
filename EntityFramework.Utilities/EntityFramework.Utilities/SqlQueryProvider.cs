@@ -58,6 +58,11 @@ namespace EntityFramework.Utilities
 
                 using (SqlBulkCopy copy = new SqlBulkCopy(con, Configuration.SqlBulkCopyOptions, null))
                 {
+                    if ( Configuration.BulkCopyTimeout.HasValue )
+                    {
+                        copy.BulkCopyTimeout = Configuration.BulkCopyTimeout.Value;
+                    }
+
                     copy.BatchSize = Math.Min(reader.RecordsAffected, batchSize ?? 15000); //default batch size
                     if (!string.IsNullOrWhiteSpace(schema))
                     {
